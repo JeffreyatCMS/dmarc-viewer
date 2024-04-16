@@ -1,0 +1,48 @@
+
+version: '3'
+ 
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: Shleprerev1!
+      MYSQL_DATABASE: dmarc
+      MYSQL_USER: jeffrey
+      MYSQL_PASSWORD: Shleprerev1!
+    ports:
+      - "6033:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+  dmarc:
+    image: dmarc-viewer:latest
+    container_name: dmarc
+    environment:
+      - TENANT_ID=38ac0d6d-ed94-49ed-b307-7e3892f22750
+      - CLIENT_ID=f257ef92-efe5-4576-9e02-6f735151681f
+      - CLIENT_SECRET=jIE8Q~F8QZj8kdn8WJMQxXS92wfrn7CQtBxqYa9H
+      - SHARED_MAILBOX_EMAIL=dmarc@columbusmicro.com
+      - MYSQL_HOST=db
+      - MYSQL_USER=jeffrey
+      - MYSQL_PASSWORD=Shleprerev1!
+      - MYSQL_DATABASE=dmarc
+    volumes:
+      - dmarcapp:/usr/src/app
+    ports:
+      - 5050:80
+    
+volumes:
+  dbdata:
+  dmarcapp:
