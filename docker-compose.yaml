@@ -6,10 +6,10 @@ services:
     image: mysql:latest
     container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: Shleprerev1!
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: dmarc
-      MYSQL_USER: jeffrey
-      MYSQL_PASSWORD: Shleprerev1!
+      MYSQL_USER: yourdbuser
+      MYSQL_PASSWORD: yourdbpassword
     ports:
       - "6033:3306"
     volumes:
@@ -30,13 +30,13 @@ services:
     image: dmarc-viewer:latest
     container_name: dmarc
     environment:
-      - TENANT_ID=38ac0d6d-ed94-49ed-b307-7e3892f22750
-      - CLIENT_ID=f257ef92-efe5-4576-9e02-6f735151681f
-      - CLIENT_SECRET=jIE8Q~F8QZj8kdn8WJMQxXS92wfrn7CQtBxqYa9H
-      - SHARED_MAILBOX_EMAIL=dmarc@columbusmicro.com
+      - TENANT_ID=YOURTENANTID
+      - CLIENT_ID=YOURCLIENTID
+      - CLIENT_SECRET=YOURCLIENTSECRET
+      - SHARED_MAILBOX_EMAIL=MAILBOXYOUWANTTOUSE
       - MYSQL_HOST=db
-      - MYSQL_USER=jeffrey
-      - MYSQL_PASSWORD=Shleprerev1!
+      - MYSQL_USER=yourdbuser
+      - MYSQL_PASSWORD=yourdbpassword
       - MYSQL_DATABASE=dmarc
     volumes:
       - dmarcapp:/usr/src/app
